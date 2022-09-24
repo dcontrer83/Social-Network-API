@@ -1,18 +1,18 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
-    // Get all users
+    // get all users
     getUsers(req, res) {
         User.find()
             .then((users) => res.json(users))
             .catch((err) => res.status(500).json(err));
     },
-    // Get a single user
+    // get a single user
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
-        .select('-__v')
         .populate('thoughts')
         .populate('friends')
+        .select('-__v')
         .then((user) => 
             !user
                 ? res.status(404).json({ message: 'No user with that ID'})
@@ -76,9 +76,9 @@ module.exports = {
             { runValidators: true, new: true }
         )
             .then((user) =>
-                !application
+                !user
                     ? res.status(404).json({ message: 'No user with this id! '})
-                    : res.json(application)
+                    : res.json(user)
             )
             .catch((err) => res.status(500).json(err));
     },
