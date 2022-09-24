@@ -30,7 +30,7 @@ module.exports = {
         .then((user) =>
             !user
                 ? res.status(404).json({ message: 'Thought created, but found no user with that ID'})
-                : res.json('Created the thought')
+                : res.json('Created thought')
         )
         .catch((err) => {
             console.log(err);
@@ -61,8 +61,8 @@ module.exports = {
                 !thought
                     ? res.status(404).json({ message: 'No thought with this id!' })
                     : User.findOneAndUpdate(
-                        { thoughts: req.params.videoId },
-                        { $pull: { thoughts: req.params.videoId } },
+                        { thoughts: req.params.thoughtId },
+                        { $pull: { thoughts: req.params.thougthId } },
                         { new: true }
                     )
             )
